@@ -73,6 +73,10 @@
             }
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .heart-container {
             position: fixed;
             width: 100%;
@@ -243,6 +247,10 @@
 
         .music-btn i {
             margin-right: 0.5rem;
+        }
+
+        .music-btn.playing i {
+            animation: spin 1s linear infinite;
         }
 
         /* Seção de Galeria */
@@ -465,12 +473,16 @@
             color: #f5a9d4;
         }
 
-        /* Audio Player Discreto */
+        /* Audio Player */
         audio {
             width: 100%;
             max-width: 300px;
             margin-top: 1rem;
             border-radius: 10px;
+        }
+
+        #audioContainer {
+            margin-top: 1.5rem;
         }
 
         /* Responsividade */
@@ -506,6 +518,12 @@
                 font-size: 1rem;
                 padding: 0.9rem 1.5rem;
             }
+
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+                font-size: 1.5rem;
+            }
         }
 
         /* Scroll Reveal */
@@ -518,22 +536,6 @@
         .scroll-reveal.active {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        /* Loading Spinner para Música */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
-            margin-right: 0.5rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -562,9 +564,12 @@
             <button class="music-btn" id="musicBtn">
                 <i class="fas fa-play"></i> Clique para nossa trilha sonora
             </button>
-            <audio id="audioPlayer" style="margin-top: 1.5rem; display: none;"></audio>
-            <div id="audioContainer" style="display: none; margin-top: 1rem; text-align: center;">
-                <audio id="audioDisplay" controls style="display: block; margin: 0 auto;"></audio>
+            <div id="audioContainer" style="display: none;">
+                <audio id="audioDisplay" controls>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--primary-color);">Janta - Marcelo Camelo</p>
             </div>
         </div>
     </section>
@@ -573,13 +578,12 @@
     <section class="gallery" id="gallery">
         <h2>Nossas Memórias <span class="heart-icon">♡</span></h2>
         <div class="gallery-grid">
-            <!-- INSTRUÇÕES: Substitua as URLs abaixo pelas suas fotos do Unsplash ou URL própria -->
             <div class="gallery-item" onclick="openLightbox(this)">
                 <img src="https://images.unsplash.com/photo-1502727877652-f206fdf8347f?w=500&h=500&fit=crop" alt="Memória 1">
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Um momento especial nosso</div>
+                <div class="gallery-caption">Um momento especial nosso</div>
             </div>
 
             <div class="gallery-item" onclick="openLightbox(this)">
@@ -587,7 +591,7 @@
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Seu sorriso ilumina meu dia</div>
+                <div class="gallery-caption">Seu sorriso ilumina meu dia</div>
             </div>
 
             <div class="gallery-item" onclick="openLightbox(this)">
@@ -595,7 +599,7 @@
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Sempre ao seu lado</div>
+                <div class="gallery-caption">Sempre ao seu lado</div>
             </div>
 
             <div class="gallery-item" onclick="openLightbox(this)">
@@ -603,7 +607,7 @@
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Nosso tempo é precioso</div>
+                <div class="gallery-caption">Nosso tempo é precioso</div>
             </div>
 
             <div class="gallery-item" onclick="openLightbox(this)">
@@ -611,7 +615,7 @@
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Você é meu melhor lugar</div>
+                <div class="gallery-caption">Você é meu melhor lugar</div>
             </div>
 
             <div class="gallery-item" onclick="openLightbox(this)">
@@ -619,7 +623,7 @@
                 <div class="gallery-overlay">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div class="gallery-caption" style="display: none;">Juntos somos infinito</div>
+                <div class="gallery-caption">Juntos somos infinito</div>
             </div>
         </div>
     </section>
@@ -652,7 +656,7 @@
         <div class="timeline-item scroll-reveal">
             <div class="timeline-date">Crescendo Juntos</div>
             <h3>A Jornada Continua</h3>
-            <p>Com você, apendi o significado real de amor. Cada dia ao seu lado é um presente que não paro de agradecer.</p>
+            <p>Com você, aprendi o significado real de amor. Cada dia ao seu lado é um presente que não paro de agradecer.</p>
         </div>
 
         <div class="timeline-item scroll-reveal">
@@ -664,4 +668,119 @@
         <div class="timeline-item scroll-reveal">
             <div class="timeline-date">Sempre</div>
             <h3>Para Sempre</h3>
-   
+            <p>Você é meu sonho realizado, minha razão de sorrir todos os dias. Te amarei para sempre e além.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with <span class="heart-icon">♡</span> para você</p>
+        <p>&copy; 2025 Nosso Amor. Todos os momentos são especiais com você.</p>
+    </footer>
+
+    <script>
+        // Gerar corações flutuantes
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const heartCount = 20;
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♡';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Lightbox
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const caption = element.querySelector('.gallery-caption');
+            const lightbox = document.getElementById('lightbox');
+            
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightboxCaption').textContent = caption.textContent;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar lightbox ao clicar fora
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Fechar com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Controle de Música
+        const musicBtn = document.getElementById('musicBtn');
+        const audioDisplay = document.getElementById('audioDisplay');
+        const audioContainer = document.getElementById('audioContainer');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', function() {
+            if (audioContainer.style.display === 'none') {
+                audioContainer.style.display = 'block';
+                audioDisplay.play();
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar Trilha Sonora';
+                isPlaying = true;
+            } else {
+                if (isPlaying) {
+                    audioDisplay.pause();
+                    musicBtn.classList.remove('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-play"></i> Retomar Trilha Sonora';
+                    isPlaying = false;
+                } else {
+                    audioDisplay.play();
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar Trilha Sonora';
+                    isPlaying = true;
+                }
+            }
+        });
+
+        // Atualizar botão quando áudio termina
+        audioDisplay.addEventListener('ended', function() {
+            musicBtn.classList.remove('playing');
+            musicBtn.innerHTML = '<i class="fas fa-play"></i> Clique para nossa trilha sonora';
+            isPlaying = false;
+        });
+
+        // Scroll Reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Inicializar
+        createHearts();
+    </script>
+</body>
+</html>
