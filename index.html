@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você, Com Amor ♡</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #d4749e;
+            --secondary-color: #8b3a5c;
+            --accent-color: #f5a9d4;
+            --dark-bg: #0f0f0f;
+            --light-bg: #fafaf8;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #fde8f0 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animação de Corações Caindo */
+        @keyframes heartfall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .heart-container {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: heartfall linear infinite;
+        }
+
+        /* Header / Navegação */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(212, 116, 158, 0.1);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Seção Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fff5f7 0%, #fde8f0 100%);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1.2s ease-out;
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .heart-icon {
+            display: inline-block;
+            animation: pulse 1.5s ease-in-out infinite;
+            color: #e74c3c;
+            font-size: 2rem;
+            margin: 0 0.5rem;
+        }
+
+        /* Botão de Música */
+        .music-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(212, 116, 158, 0.4);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .music-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .music-btn:hover::before {
+            left: 100%;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 116, 158, 0.6);
+        }
+
+        .music-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .music-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Seção de Galeria */
+        .gallery {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--light-bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 116, 158, 0.2);
+            animation: fadeInUp 0.8s ease-out backwards;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 58, 92, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+
+        /* Timeline / Mural */
+        .timeline {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline h2 {
+            text-align: center;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(212, 116, 158, 0.15);
+            animation: slideInLeft 0.8s ease-out backwards;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1s; }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 20px rgba(212, 116, 158, 0.3);
+            border-left-color: var(--secondary-color);
+        }
+
+        .timeline-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-dark);
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seção Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer .heart-icon {
+            color: #f5a9d4;
+        }
+
+        /* Audio Player Discreto */
+        audio {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 1rem;
+            border-radius: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .timeline {
+                padding: 2rem 1rem;
+            }
+
+            .gallery {
+                padding: 2rem 1rem;
+            }
+
+            .music-btn {
+                width: 90%;
+                font-size: 1rem;
+                padding: 0.9rem 1.5rem;
+            }
+        }
+
+        /* Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Spinner para Música */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container de Corações Flutuantes -->
+    <div class="heart-container" id="heartContainer"></div>
+
+    <!-- Header / Navegação -->
+    <header>
+        <nav>
+            <div class="logo">♡ Nosso Amor</div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#timeline">Nossa História</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Você é meu <span class="heart-icon">♡</span> favorito</h1>
+            <p>Uma página dedicada às nossas melhores memórias e ao nosso amor</p>
+            <button class="music-btn" id="musicBtn">
+                <i class="fas fa-play"></i> Clique para nossa trilha sonora
+            </button>
+            <audio id="audioPlayer" style="margin-top: 1.5rem; display: none;"></audio>
+            <div id="audioContainer" style="display: none; margin-top: 1rem; text-align: center;">
+                <audio id="audioDisplay" controls style="display: block; margin: 0 auto;"></audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Galeria -->
+    <section class="gallery" id="gallery">
+        <h2>Nossas Memórias <span class="heart-icon">♡</span></h2>
+        <div class="gallery-grid">
+            <!-- INSTRUÇÕES: Substitua as URLs abaixo pelas suas fotos do Unsplash ou URL própria -->
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1502727877652-f206fdf8347f?w=500&h=500&fit=crop" alt="Memória 1">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Um momento especial nosso</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500&h=500&fit=crop" alt="Memória 2">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Seu sorriso ilumina meu dia</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=500&h=500&fit=crop" alt="Memória 3">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Sempre ao seu lado</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?w=500&h=500&fit=crop" alt="Memória 4">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Nosso tempo é precioso</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&h=500&fit=crop" alt="Memória 5">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Você é meu melhor lugar</div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1475713432562-f1b9e6a56cb2?w=500&h=500&fit=crop" alt="Memória 6">
+                <div class="gallery-overlay">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="gallery-caption" style="display: none;">Juntos somos infinito</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+    </div>
+
+    <!-- Seção Timeline / Nossa História -->
+    <section class="timeline" id="timeline">
+        <h2>Nossa História <span class="heart-icon">♡</span></h2>
+
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-date">O Começo</div>
+            <h3>Quando nos conhecemos</h3>
+            <p>Aquele primeiro momento em que nossos olhos se encontraram foi mágico. Você mudou minha vida desde então.</p>
+        </div>
+
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-date">Primeiro Encontro</div>
+            <h3>Aquele dia especial</h3>
+            <p>Cada minuto ao seu lado passou como segundos. Soube naquele momento que você era diferente, que você era especial.</p>
+        </div>
+
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-date">Crescendo Juntos</div>
+            <h3>A Jornada Continua</h3>
+            <p>Com você, apendi o significado real de amor. Cada dia ao seu lado é um presente que não paro de agradecer.</p>
+        </div>
+
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-date">Hoje</div>
+            <h3>Nosso Amor</h3>
+            <p>Hoje eu sigo apaixonado. Você é minha inspiração, minha força, meu amor eternamente.</p>
+        </div>
+
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-date">Sempre</div>
+            <h3>Para Sempre</h3>
+   
